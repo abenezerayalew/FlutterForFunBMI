@@ -1,0 +1,75 @@
+how to change the background colour of a container in dark theme in flutter?
+Set colorScheme in both light and dark theme as follows:
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: const ColorScheme(
+            brightness: Brightness.light,
+            primary: Colors.orange,
+            onPrimary: Colors.white,
+            secondary: Colors.green,
+            onSecondary: Colors.white,
+            primaryContainer: Colors.orange,
+            error: Colors.black,
+            onError: Colors.white,
+            background: Colors.blue,
+            onBackground: Colors.white,
+            surface: Colors.pink,
+            onSurface: Colors.white,
+          ),
+        ),
+        themeMode: ThemeMode.light,
+        darkTheme: ThemeData(
+          useMaterial3: true,
+          colorScheme: const ColorScheme(
+            brightness: Brightness.dark,
+            primary: Colors.red,
+            onPrimary: Colors.white,
+            secondary: Colors.green,
+            onSecondary: Colors.white,
+            primaryContainer: Colors.pink,
+            error: Colors.black,
+            onError: Colors.white,
+            background: Colors.blue,
+            onBackground: Colors.white,
+            surface: Colors.pink,
+            onSurface: Colors.white,
+          ),
+        ),
+      themeMode: ThemeMode.light, // ThemeMode.dark
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+Then you can use color inside container such as
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          Theme.of(context).brightness == Brightness.dark
+              ? "Dark Theme"
+              : "Light Theme",
+        ),
+      ),
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ),
+          height: 300,
+          width: 300,
+          child: const Text('Hello'),
+        ),
+      ),
+    );
+  }
+}
